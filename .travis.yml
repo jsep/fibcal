@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t jsep/fibcal-client -f client/Dockerfile.dev ./client
+script:
+  - docker run -e CI=true jsep/fibcal-client npm run test
+after_success:
+  - docker build -t jsep/fibcal-client -f Dockerfile ./client
+  - docker build -t jsep/fibcal-server -f Dockerfile ./server
+  - docker build -t jsep/fibcal-nginx -f Dockerfile ./nginx
+  - docker build -t jsep/fibcal-worker -f Dockerfile ./worker
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USR" --pasword-stdin
+  - docker push jsep/fibcal-client
+  - docker push jsep/fibcal-server
+  - docker push jsep/fibcal-nginx
+  - docker push jsep/fibcal-worker
