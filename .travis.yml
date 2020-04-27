@@ -10,7 +10,7 @@ after_success:
   - docker build -t jsep/fibcal-server -f Dockerfile ./server
   - docker build -t jsep/fibcal-nginx -f Dockerfile ./nginx
   - docker build -t jsep/fibcal-worker -f Dockerfile ./worker
-  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USR" --pasword-stdin
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USR" --password-stdin
   - docker push jsep/fibcal-client
   - docker push jsep/fibcal-server
   - docker push jsep/fibcal-nginx
