@@ -6,10 +6,10 @@ before_install:
 script:
   - docker run -e CI=true jsep/fibcal-client npm run test
 after_success:
-  - docker build -t jsep/fibcal-client -f Dockerfile ./client
-  - docker build -t jsep/fibcal-server -f Dockerfile ./server
-  - docker build -t jsep/fibcal-nginx -f Dockerfile ./nginx
-  - docker build -t jsep/fibcal-worker -f Dockerfile ./worker
+  - docker build -t jsep/fibcal-client ./client
+  - docker build -t jsep/fibcal-server ./server
+  - docker build -t jsep/fibcal-nginx ./nginx
+  - docker build -t jsep/fibcal-worker ./worker
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USR" --password-stdin
   - docker push jsep/fibcal-client
   - docker push jsep/fibcal-server
