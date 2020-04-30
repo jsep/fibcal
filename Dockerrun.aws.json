@@ -1,0 +1,35 @@
+{
+  "AWSEBDockerrunVerion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "jsep/fibcal-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "jsep/fibcal-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "jsep/fibcal-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "jsep/fibcal-nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links":["client", "server"]
+    }
+  ]
+}

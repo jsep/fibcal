@@ -15,3 +15,15 @@ after_success:
   - docker push jsep/fibcal-server
   - docker push jsep/fibcal-nginx
   - docker push jsep/fibcal-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "fibcalc"
+  env: "Fibcalc-env"
+  bucket_name: "elasticbeanstalk-us-east-2-267118555161"
+  bucket_path: "fibcalc"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
